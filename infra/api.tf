@@ -20,10 +20,10 @@ resource "aws_apigatewayv2_stage" "default" {
 
 locals {
   routes = {
-    "POST /links"              = "create"
-    "GET /links/{code}/stats"  = "stats"
-    "DELETE /links/{code}"     = "delete"
-    "GET /{code}"              = "redirect"
+    "POST /links"             = "create"
+    "GET /links/{code}/stats" = "stats"
+    "DELETE /links/{code}"    = "delete"
+    "GET /{code}"             = "redirect"
   }
 }
 

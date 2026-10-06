@@ -5,22 +5,22 @@ data "archive_file" "code" {
 }
 
 resource "aws_iam_role" "lambda" {
-  name = "${local.name}-lambda"
+  name               = "${local.name}-lambda"
   assume_role_policy = jsonencode({
-    Version = "2012-10-17"
+    Version   = "2012-10-17"
     Statement = [{ Effect = "Allow", Principal = { Service = "lambda.amazonaws.com" }, Action = "sts:AssumeRole" }]
   })
 }
 
 # Least privilege: only the tables and queue this app uses.
 resource "aws_iam_role_policy" "lambda" {
-  role = aws_iam_role.lambda.id
+  role   = aws_iam_role.lambda.id
   policy = jsonencode({
-    Version = "2012-10-17"
+    Version   = "2012-10-17"
     Statement = [
       {
-        Effect = "Allow"
-        Action = ["dynamodb:GetItem", "dynamodb:PutItem", "dynamodb:UpdateItem", "dynamodb:DeleteItem", "dynamodb:Query"]
+        Effect   = "Allow"
+        Action   = ["dynamodb:GetItem", "dynamodb:PutItem", "dynamodb:UpdateItem", "dynamodb:DeleteItem", "dynamodb:Query"]
         Resource = [
           aws_dynamodb_table.links.arn,
           aws_dynamodb_table.clicks_daily.arn,

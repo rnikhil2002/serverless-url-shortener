@@ -82,7 +82,7 @@ resource "aws_sqs_queue" "clicks_dlq" {
 resource "aws_sqs_queue" "clicks" {
   name                       = "${local.name}-clicks"
   visibility_timeout_seconds = 60
-  redrive_policy = jsonencode({
+  redrive_policy             = jsonencode({
     deadLetterTargetArn = aws_sqs_queue.clicks_dlq.arn
     maxReceiveCount     = 5
   })
